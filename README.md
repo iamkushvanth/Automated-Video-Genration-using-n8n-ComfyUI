@@ -56,10 +56,8 @@ Welcome to the ultimate automated video generation project built with **n8n** an
 
 ## Sample output
 
-<video controls autoplay loop muted width="800">
-  <source src="./GenAIProject.mp4" type="video/mp4">
-  Your browser or viewer does not support inline video playback. Download the file to watch it locally.
-</video>
+  <source src="imgs\GenAIProject.mp4" type="video/mp4">
+
 
 ---
 
