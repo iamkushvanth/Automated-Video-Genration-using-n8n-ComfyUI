@@ -1,0 +1,21 @@
+{
+  "resolution": "sd",
+  "quality": "high",
+  "scenes": [
+    {
+      "elements": [
+        {
+          "type": "image",
+          "src": "{{ $json.imageUrl }}",
+          "duration": 47,
+          "zoom-effect": "none"
+        },
+        {
+          "type": "audio",
+          "src": "{{ $json.audioUrl }}",
+          "volume": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,703 @@
+{
+  "name": "ComfyUI_n8n_json2video",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        672,
+        -424
+      ],
+      "id": "e5d5098a-e08c-46a2-9e4e-59588474dfd9",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1bT5PysjnhHzBeljkvSNIlXfaNBu01q71ZYDzXHDdE6Y",
+          "mode": "list",
+          "cachedResultName": "ComfyUI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1bT5PysjnhHzBeljkvSNIlXfaNBu01q71ZYDzXHDdE6Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1bT5PysjnhHzBeljkvSNIlXfaNBu01q71ZYDzXHDdE6Y/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "status",
+              "lookupValue": "processing"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        896,
+        -424
+      ],
+      "id": "b608e226-46e7-45f1-986c-d483aa790a59",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "iS79wYk5iOkzvuaG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1120,
+        -424
+      ],
+      "id": "4be9bf40-28ab-4721-8777-2a78bb90df58",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "action": "generate",
+        "dataPropertyName": "UUID"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        -496
+      ],
+      "id": "5d91697e-6135-40cc-b90e-1991bb3350aa",
+      "name": "UUID"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "853f5637-09fd-4ab9-8955-b3cbe055fd0a",
+              "name": "Prompt",
+              "value": "={{ $json.imagePrompt }}",
+              "type": "string"
+            },
+            {
+              "id": "0ae1f69e-057a-44a1-9947-70dd685ee475",
+              "name": "seed",
+              "value": "={{ $json.seed }}",
+              "type": "number"
+            },
+            {
+              "id": "c1006a30-1e7a-4598-ab46-92096d76782e",
+              "name": "width",
+              "value": "={{ $json.width }}",
+              "type": "number"
+            },
+            {
+              "id": "d5ca2b63-0e52-4d32-9e8b-460ac12d47d1",
+              "name": "height",
+              "value": "={{ $json.height }}",
+              "type": "number"
+            },
+            {
+              "id": "fb89331b-6db4-47d8-8ad1-a8dfe3567830",
+              "name": "steps",
+              "value": "={{ $json.steps }}",
+              "type": "number"
+            },
+            {
+              "id": "1f0b02e4-67fc-42ad-a153-32a5a8fe1ca4",
+              "name": "negativePrompt",
+              "value": "={{ $json.negativePrompt }}",
+              "type": "string"
+            },
+            {
+              "id": "92d4d57d-932b-4191-83de-1571305136fe",
+              "name": "cfg",
+              "value": "={{ $json.cfg }}",
+              "type": "number"
+            },
+            {
+              "id": "402b01c0-0482-4661-8499-d3c027519777",
+              "name": "MusicTags",
+              "value": "={{ $json.musicTags }}",
+              "type": "string"
+            },
+            {
+              "id": "18835d21-f66f-457d-898a-d24d84ce71b9",
+              "name": "Talking Points",
+              "value": "={{ $json['Talking Points'] }}",
+              "type": "string"
+            },
+            {
+              "id": "303469af-ee6a-4b1b-bb0a-30217cc74e5c",
+              "name": "flux_sampler",
+              "value": "dpmpp_2m",
+              "type": "string"
+            },
+            {
+              "id": "7660d091-46e5-4398-8895-0e8ae2a6cff0",
+              "name": "flux_scheduler",
+              "value": "sgm_uniform",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1568,
+        -496
+      ],
+      "id": "e89abb39-b367-4970-8920-c0cf2e693445",
+      "name": "Gather Info"
+    },
+    {
+      "parameters": {
+        "workflowJson": "={\n  \"3\": {\n    \"inputs\": {\n      \"seed\": {{ $json.seed }},\n      \"steps\": {{ $json.steps }},\n      \"cfg\": {{ $json.cfg }},\n      \"sampler_name\": \"dpmpp_3m_sde_gpu\",\n      \"scheduler\": \"exponential\",\n      \"denoise\": 1,\n      \"model\": [\n        \"4\",\n        0\n      ],\n      \"positive\": [\n        \"6\",\n        0\n      ],\n      \"negative\": [\n        \"7\",\n        0\n      ],\n      \"latent_image\": [\n        \"11\",\n        0\n      ]\n    },\n    \"class_type\": \"KSampler\",\n    \"_meta\": {\n      \"title\": \"KSampler\"\n    }\n  },\n  \"4\": {\n    \"inputs\": {\n      \"ckpt_name\": \"stable-audio-open-1.0.safetensors\"\n    },\n    \"class_type\": \"CheckpointLoaderSimple\",\n    \"_meta\": {\n      \"title\": \"Load Checkpoint\"\n    }\n  },\n  \"6\": {\n    \"inputs\": {\n      \"text\": \"{{ $json['Talking Points'] }}\",\n      \"clip\": [\n        \"10\",\n        0\n      ]\n    },\n    \"class_type\": \"CLIPTextEncode\",\n    \"_meta\": {\n      \"title\": \"CLIP Text Encode (Prompt)\"\n    }\n  },\n  \"7\": {\n    \"inputs\": {\n      \"text\": \"\",\n      \"clip\": [\n        \"10\",\n        0\n      ]\n    },\n    \"class_type\": \"CLIPTextEncode\",\n    \"_meta\": {\n      \"title\": \"CLIP Text Encode (Prompt)\"\n    }\n  },\n  \"10\": {\n    \"inputs\": {\n      \"clip_name\": \"t5-base.safetensors\",\n      \"type\": \"stable_audio\",\n      \"device\": \"default\"\n    },\n    \"class_type\": \"CLIPLoader\",\n    \"_meta\": {\n      \"title\": \"Load CLIP\"\n    }\n  },\n  \"11\": {\n    \"inputs\": {\n      \"seconds\": 47.6,\n      \"batch_size\": 1\n    },\n    \"class_type\": \"EmptyLatentAudio\",\n    \"_meta\": {\n      \"title\": \"Empty Latent Audio\"\n    }\n  },\n  \"12\": {\n    \"inputs\": {\n      \"samples\": [\n        \"3\",\n        0\n      ],\n      \"vae\": [\n        \"4\",\n        2\n      ]\n    },\n    \"class_type\": \"VAEDecodeAudio\",\n    \"_meta\": {\n      \"title\": \"VAE Decode Audio\"\n    }\n  },\n  \"19\": {\n    \"inputs\": {\n      \"filename_prefix\": \"audio/ComfyUI\",\n      \"quality\": \"V0\",\n      \"audioUI\": \"\",\n      \"audio\": [\n        \"12\",\n        0\n      ]\n    },\n    \"class_type\": \"SaveAudioMP3\",\n    \"_meta\": {\n      \"title\": \"Save Audio (MP3)\"\n    }\n  },\n  \"20\": {\n    \"inputs\": {\n      \"audio\": [\n        \"12\",\n        0\n      ]\n    },\n    \"class_type\": \"PreviewAudio\",\n    \"_meta\": {\n      \"title\": \"Preview Audio\"\n    }\n  }\n}",
+        "text": "={{ $json.MusicTags }},{{ $json['Talking Points'] }}"
+      },
+      "type": "n8n-nodes-comfyui-text-to-audio.comfyuiTextToAudio",
+      "typeVersion": 1,
+      "position": [
+        1792,
+        -592
+      ],
+      "id": "e8de55f1-848b-40b3-b109-ee096c53bd23",
+      "name": "ComfyUI Text to Audio",
+      "retryOnFail": true,
+      "credentials": {
+        "comfyUIApi": {
+          "id": "t9ec310bAJTh2Xy1",
+          "name": "ComfyUI account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2912,
+        -496
+      ],
+      "id": "6d5a48d2-beae-433a-8f6f-2760fb08049e",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3584,
+        -496
+      ],
+      "id": "d17d2d44-4b8c-4264-97a0-fa5349caa863",
+      "name": "Wait",
+      "webhookId": "d0fb2da1-6a4d-4a05-b76f-95bf0d789d6e"
+    },
+    {
+      "parameters": {
+        "url": "=http://host.docker.internal:8000/history",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2016,
+        -592
+      ],
+      "id": "99b1492a-8dde-457c-bb47-5e9c34eb675a",
+      "name": "ComfyUI_History"
+    },
+    {
+      "parameters": {
+        "jsCode": "const history = $input.first().json;\nconst promptId = Object.keys(history)[0];\nconst outputs = history[promptId].outputs;\n\n// Find the node with audio output\nconst audioNode = Object.values(outputs).find(node => node.audio);\nconst audio = audioNode.audio[0];\n\nreturn [{\n  json: {\n    filename: audio.filename,\n    subfolder: audio.subfolder,\n    type: audio.type\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2240,
+        -592
+      ],
+      "id": "304a6871-9e71-491f-a17c-284135f1e6b6",
+      "name": "Get File Info"
+    },
+    {
+      "parameters": {
+        "url": "=http://host.docker.internal:8000/view",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "filename",
+              "value": "={{ $json.filename }}"
+            },
+            {
+              "name": "type",
+              "value": "output"
+            },
+            {
+              "name": "subfolder",
+              "value": "={{ $json.subfolder }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2464,
+        -592
+      ],
+      "id": "37508fa8-3ca0-4e9d-97fe-eef08b8a3e2b",
+      "name": "Get Audio File"
+    },
+    {
+      "parameters": {
+        "workflow": "={\n  \"3\": {\n    \"inputs\": {\n      \"seed\": {{ $json.seed }},\n      \"steps\": {{ $json.steps }},\n      \"cfg\": {{ $json.cfg }},\n      \"sampler_name\": \"euler\",\n      \"scheduler\": \"normal\",\n      \"denoise\": 1,\n      \"model\": [\n        \"4\",\n        0\n      ],\n      \"positive\": [\n        \"6\",\n        0\n      ],\n      \"negative\": [\n        \"7\",\n        0\n      ],\n      \"latent_image\": [\n        \"5\",\n        0\n      ]\n    },\n    \"class_type\": \"KSampler\",\n    \"_meta\": {\n      \"title\": \"KSampler\"\n    }\n  },\n  \"4\": {\n    \"inputs\": {\n      \"ckpt_name\": \"v1-5-pruned-emaonly-fp16.safetensors\"\n    },\n    \"class_type\": \"CheckpointLoaderSimple\",\n    \"_meta\": {\n      \"title\": \"Load Checkpoint\"\n    }\n  },\n  \"5\": {\n    \"inputs\": {\n      \"width\": {{ $json.width }},\n      \"height\": {{ $json.height }},\n      \"batch_size\": 1\n    },\n    \"class_type\": \"EmptyLatentImage\",\n    \"_meta\": {\n      \"title\": \"Empty Latent Image\"\n    }\n  },\n  \"6\": {\n    \"inputs\": {\n      \"text\": \"{{ $json.Prompt }}\",\n      \"clip\": [\n        \"4\",\n        1\n      ]\n    },\n    \"class_type\": \"CLIPTextEncode\",\n    \"_meta\": {\n      \"title\": \"CLIP Text Encode (Prompt)\"\n    }\n  },\n  \"7\": {\n    \"inputs\": {\n      \"text\": \"text, watermark\",\n      \"clip\": [\n        \"4\",\n        1\n      ]\n    },\n    \"class_type\": \"CLIPTextEncode\",\n    \"_meta\": {\n      \"title\": \"CLIP Text Encode (Prompt)\"\n    }\n  },\n  \"8\": {\n    \"inputs\": {\n      \"samples\": [\n        \"3\",\n        0\n      ],\n      \"vae\": [\n        \"4\",\n        2\n      ]\n    },\n    \"class_type\": \"VAEDecode\",\n    \"_meta\": {\n      \"title\": \"VAE Decode\"\n    }\n  },\n  \"9\": {\n    \"inputs\": {\n      \"filename_prefix\": \"SD1.5\",\n      \"images\": [\n        \"8\",\n        0\n      ]\n    },\n    \"class_type\": \"SaveImage\",\n    \"_meta\": {\n      \"title\": \"Save Image\"\n    }\n  },\n  \"17\": {\n    \"inputs\": {\n      \"ckpt_name\": \"v1-5-pruned-emaonly-fp16.safetensors\"\n    },\n    \"class_type\": \"CheckpointLoaderSimple\",\n    \"_meta\": {\n      \"title\": \"Load Checkpoint\"\n    }\n  }\n}"
+      },
+      "type": "n8n-nodes-comfyui.comfyui",
+      "typeVersion": 1,
+      "position": [
+        2464,
+        -400
+      ],
+      "id": "f61dcd05-7575-4bed-87d8-106961edd93e",
+      "name": "ComfyUI Text To Image",
+      "alwaysOutputData": true,
+      "credentials": {
+        "comfyUIApi": {
+          "id": "t9ec310bAJTh2Xy1",
+          "name": "ComfyUI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "={{ $json.filename }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "16kHl2FTNJJGEgWxDkokafO6Ar14ViBM4",
+          "mode": "list",
+          "cachedResultName": "Genai_ComfyUI_n8n_image",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/16kHl2FTNJJGEgWxDkokafO6Ar14ViBM4"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2688,
+        -400
+      ],
+      "id": "9b3f6d0c-1beb-4f56-8556-797bbd7a5726",
+      "name": "Upload Image",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "05TgaPzDow7NV4CX",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "={{ $json.filename }}",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1ET3Qkur3d3SrEK57iN4r5-plhGX81LQm",
+          "mode": "list",
+          "cachedResultName": "GenAI_ComfyUI_n8n_Audio",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1ET3Qkur3d3SrEK57iN4r5-plhGX81LQm"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2688,
+        -592
+      ],
+      "id": "314c2b69-b575-48ce-806c-276216a4cc3c",
+      "name": "Upload Audio",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "05TgaPzDow7NV4CX",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst audio = items.find(i => i.json.mimeType === 'audio/mpeg');\nconst image = items.find(i => i.json.mimeType === 'image/jpeg');\n\nreturn [{\n  json: {\n    audioUrl: audio.json.webContentLink,\n    imageUrl: image.json.webContentLink\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3136,
+        -496
+      ],
+      "id": "dd743054-7816-4194-8d46-ef1eb1aee252",
+      "name": "Get Drive Info"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.json2video.com/v2/movies",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "Eee0IQbe7RMgO5coYFGRunEGBkCD5CSDbcC6eCeG"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"resolution\": \"sd\",\n  \"quality\": \"high\",\n  \"scenes\": [\n    {\n      \"elements\": [\n        {\n          \"type\": \"image\",\n          \"src\": \"{{ $json.imageUrl }}\",\n          \"duration\": 47,\n          \"zoom-effect\": \"none\"\n        },\n        {\n          \"type\": \"audio\",\n          \"src\": \"{{ $json.audioUrl }}\",\n          \"volume\": 1\n        }\n      ]\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        3360,
+        -496
+      ],
+      "id": "18cca5fd-0189-4b79-8633-6dd5dd525a0c",
+      "name": "Generate Video"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.json2video.com/v2/movies?project={{ $json.project }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "Eee0IQbe7RMgO5coYFGRunEGBkCD5CSDbcC6eCeG"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        3808,
+        -496
+      ],
+      "id": "8ec98409-ea2d-40f0-b5fe-c5bebde3a4e2",
+      "name": "Get Project Info"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.movie.url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        4032,
+        -496
+      ],
+      "id": "f7d2187e-c3f1-4ac5-acbc-b594b5a2dac8",
+      "name": "Final Video Output "
+    },
+    {
+      "parameters": {
+        "name": "={{ $json.movie.url }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1kA8exx-c11a5rsilW84EPyPOcml8W1w5",
+          "mode": "list",
+          "cachedResultName": "GenAI_ComfyUI_n8n_Video",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1kA8exx-c11a5rsilW84EPyPOcml8W1w5"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        4256,
+        -424
+      ],
+      "id": "d0bbb8f1-3fd9-4041-9dea-0a0717a05a6b",
+      "name": "Upload GenAI Video",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "05TgaPzDow7NV4CX",
+          "name": "Google Drive account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "UUID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UUID": {
+      "main": [
+        [
+          {
+            "node": "Gather Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gather Info": {
+      "main": [
+        [
+          {
+            "node": "ComfyUI Text To Image",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "ComfyUI Text to Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ComfyUI Text to Audio": {
+      "main": [
+        [
+          {
+            "node": "ComfyUI_History",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Get Drive Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Get Project Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ComfyUI_History": {
+      "main": [
+        [
+          {
+            "node": "Get File Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get File Info": {
+      "main": [
+        [
+          {
+            "node": "Get Audio File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Audio File": {
+      "main": [
+        [
+          {
+            "node": "Upload Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ComfyUI Text To Image": {
+      "main": [
+        [
+          {
+            "node": "Upload Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Image": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Upload Audio": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Drive Info": {
+      "main": [
+        [
+          {
+            "node": "Generate Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Video": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Project Info": {
+      "main": [
+        [
+          {
+            "node": "Final Video Output ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Final Video Output ": {
+      "main": [
+        [
+          {
+            "node": "Upload GenAI Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload GenAI Video": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "7f0e129f-66f6-46a1-b5e9-8904c077891f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "868729e460938b9585e5970de5c5221003860865e8c365f89bfee277e7c12e94"
+  },
+  "id": "SSeQcyNvfP113fB9",
+  "tags": []
+}
