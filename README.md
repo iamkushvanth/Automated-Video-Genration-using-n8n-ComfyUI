@@ -56,7 +56,8 @@ Welcome to the ultimate automated video generation project built with **n8n** an
 
 ## Sample output
 
-[![Watch Demo](imgs/thumbnail.png)](imgs/GenAIProject.mp4)
+
+https://github.com/user-attachments/assets/3afe326b-fec6-437f-8030-19711172c119
 
 
 ---
