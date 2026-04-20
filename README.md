@@ -85,3 +85,21 @@ https://github.com/user-attachments/assets/3afe326b-fec6-437f-8030-19711172c119
 This repository turns creative AI workflows into a repeatable pipeline. With end-to-end integration between ComfyUI and n8n, you can rapidly go from concept to generated video using structured automation.
 
 Enjoy building your next AI-powered video experience!
+
+
+![n8n](https://img.shields.io/badge/n8n-EA4B71?style=for-the-badge&logo=n8n&logoColor=white)
+![ComfyUI](https://img.shields.io/badge/ComfyUI-000000?style=for-the-badge&logo=comfyui&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Google Drive](https://img.shields.io/badge/Google%20Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)
+![Google Sheets](https://img.shields.io/badge/Google%20Sheets-34A853?style=for-the-badge&logo=googlesheets&logoColor=white)
+
+![Stable Diffusion](https://img.shields.io/badge/Stable%20Diffusion-FF6B6B?style=for-the-badge&logoColor=white)
+![Stable Audio](https://img.shields.io/badge/Stable%20Audio-8B5CF6?style=for-the-badge&logoColor=white)
+![JSON2Video](https://img.shields.io/badge/JSON2Video-FF4500?style=for-the-badge&logoColor=white)
+
+![Automation](https://img.shields.io/badge/Automation-GenAI-brightgreen?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
