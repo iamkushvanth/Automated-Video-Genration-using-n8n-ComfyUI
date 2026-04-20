@@ -56,7 +56,7 @@ Welcome to the ultimate automated video generation project built with **n8n** an
 
 ## Sample output
 
-  <source src="imgs\GenAIProject.mp4" type="video/mp4">
+[![Watch Demo](imgs/thumbnail.png)](imgs/GenAIProject.mp4)
 
 
 ---
